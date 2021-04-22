@@ -22,239 +22,13 @@ type payload struct {
 type Pod struct {
 	Metadata struct {
 		Name              string    `json:"name"`
-		Generatename      string    `json:"generateName"`
 		Namespace         string    `json:"namespace"`
-		Selflink          string    `json:"selfLink"`
-		UID               string    `json:"uid"`
 		Resourceversion   string    `json:"resourceVersion"`
 		Creationtimestamp time.Time `json:"creationTimestamp"`
 		Labels            struct {
 			App             string `json:"app"`
 			PodTemplateHash string `json:"pod-template-hash"`
 		} `json:"labels"`
-		Annotations struct {
-			CniProjectcalicoOrgPodip  string `json:"cni.projectcalico.org/podIP"`
-			CniProjectcalicoOrgPodips string `json:"cni.projectcalico.org/podIPs"`
-		} `json:"annotations"`
-		Ownerreferences []struct {
-			Apiversion         string `json:"apiVersion"`
-			Kind               string `json:"kind"`
-			Name               string `json:"name"`
-			UID                string `json:"uid"`
-			Controller         bool   `json:"controller"`
-			Blockownerdeletion bool   `json:"blockOwnerDeletion"`
-		} `json:"ownerReferences"`
-		Managedfields []struct {
-			Manager    string    `json:"manager"`
-			Operation  string    `json:"operation"`
-			Apiversion string    `json:"apiVersion"`
-			Time       time.Time `json:"time"`
-			Fieldstype string    `json:"fieldsType"`
-			Fieldsv1   struct {
-				FMetadata struct {
-					FGeneratename struct {
-					} `json:"f:generateName"`
-					FLabels struct {
-						NAMING_FAILED struct {
-						} `json:"."`
-						FApp struct {
-						} `json:"f:app"`
-						FPodTemplateHash struct {
-						} `json:"f:pod-template-hash"`
-					} `json:"f:labels"`
-					FOwnerreferences struct {
-						NAMING_FAILED struct {
-						} `json:"."`
-						KUID8Afdf0B5201B49C589063530Ab5Fe5C0 struct {
-							NAMING_FAILED struct {
-							} `json:"."`
-							FApiversion struct {
-							} `json:"f:apiVersion"`
-							FBlockownerdeletion struct {
-							} `json:"f:blockOwnerDeletion"`
-							FController struct {
-							} `json:"f:controller"`
-							FKind struct {
-							} `json:"f:kind"`
-							FName struct {
-							} `json:"f:name"`
-							FUID struct {
-							} `json:"f:uid"`
-						} `json:"k:{"uid":"8afdf0b5-201b-49c5-8906-3530ab5fe5c0"}"`
-					} `json:"f:ownerReferences"`
-				} `json:"f:metadata"`
-				FSpec struct {
-					FContainers struct {
-						KNameGokubTester struct {
-							NAMING_FAILED struct {
-							} `json:"."`
-							FEnv struct {
-								NAMING_FAILED struct {
-								} `json:"."`
-								KNameNamespace struct {
-									NAMING_FAILED struct {
-									} `json:"."`
-									FName struct {
-									} `json:"f:name"`
-									FValuefrom struct {
-										NAMING_FAILED struct {
-										} `json:"."`
-										FConfigmapkeyref struct {
-											NAMING_FAILED struct {
-											} `json:"."`
-											FKey struct {
-											} `json:"f:key"`
-											FName struct {
-											} `json:"f:name"`
-										} `json:"f:configMapKeyRef"`
-									} `json:"f:valueFrom"`
-								} `json:"k:{"name":"NAMESPACE"}"`
-								KNameService struct {
-									NAMING_FAILED struct {
-									} `json:"."`
-									FName struct {
-									} `json:"f:name"`
-									FValuefrom struct {
-										NAMING_FAILED struct {
-										} `json:"."`
-										FConfigmapkeyref struct {
-											NAMING_FAILED struct {
-											} `json:"."`
-											FKey struct {
-											} `json:"f:key"`
-											FName struct {
-											} `json:"f:name"`
-										} `json:"f:configMapKeyRef"`
-									} `json:"f:valueFrom"`
-								} `json:"k:{"name":"SERVICE"}"`
-							} `json:"f:env"`
-							FImage struct {
-							} `json:"f:image"`
-							FImagepullpolicy struct {
-							} `json:"f:imagePullPolicy"`
-							FLivenessprobe struct {
-								NAMING_FAILED struct {
-								} `json:"."`
-								FFailurethreshold struct {
-								} `json:"f:failureThreshold"`
-								FHttpget struct {
-									NAMING_FAILED struct {
-									} `json:"."`
-									FPath struct {
-									} `json:"f:path"`
-									FPort struct {
-									} `json:"f:port"`
-									FScheme struct {
-									} `json:"f:scheme"`
-								} `json:"f:httpGet"`
-								FInitialdelayseconds struct {
-								} `json:"f:initialDelaySeconds"`
-								FPeriodseconds struct {
-								} `json:"f:periodSeconds"`
-								FSuccessthreshold struct {
-								} `json:"f:successThreshold"`
-								FTimeoutseconds struct {
-								} `json:"f:timeoutSeconds"`
-							} `json:"f:livenessProbe"`
-							FName struct {
-							} `json:"f:name"`
-							FPorts struct {
-								NAMING_FAILED struct {
-								} `json:"."`
-								KContainerport8080ProtocolTCP struct {
-									NAMING_FAILED struct {
-									} `json:"."`
-									FContainerport struct {
-									} `json:"f:containerPort"`
-									FName struct {
-									} `json:"f:name"`
-									FProtocol struct {
-									} `json:"f:protocol"`
-								} `json:"k:{"containerPort":8080,"protocol":"TCP"}"`
-							} `json:"f:ports"`
-							FResources struct {
-							} `json:"f:resources"`
-							FTerminationmessagepath struct {
-							} `json:"f:terminationMessagePath"`
-							FTerminationmessagepolicy struct {
-							} `json:"f:terminationMessagePolicy"`
-						} `json:"k:{"name":"gokub-tester"}"`
-					} `json:"f:containers"`
-					FDnspolicy struct {
-					} `json:"f:dnsPolicy"`
-					FEnableservicelinks struct {
-					} `json:"f:enableServiceLinks"`
-					FRestartpolicy struct {
-					} `json:"f:restartPolicy"`
-					FSchedulername struct {
-					} `json:"f:schedulerName"`
-					FSecuritycontext struct {
-					} `json:"f:securityContext"`
-					FTerminationgraceperiodseconds struct {
-					} `json:"f:terminationGracePeriodSeconds"`
-				} `json:"f:spec"`
-				FStatus struct {
-					FConditions struct {
-						KTypeContainersready struct {
-							NAMING_FAILED struct {
-							} `json:"."`
-							FLastprobetime struct {
-							} `json:"f:lastProbeTime"`
-							FLasttransitiontime struct {
-							} `json:"f:lastTransitionTime"`
-							FStatus struct {
-							} `json:"f:status"`
-							FType struct {
-							} `json:"f:type"`
-						} `json:"k:{"type":"ContainersReady"}"`
-						KTypeInitialized struct {
-							NAMING_FAILED struct {
-							} `json:"."`
-							FLastprobetime struct {
-							} `json:"f:lastProbeTime"`
-							FLasttransitiontime struct {
-							} `json:"f:lastTransitionTime"`
-							FStatus struct {
-							} `json:"f:status"`
-							FType struct {
-							} `json:"f:type"`
-						} `json:"k:{"type":"Initialized"}"`
-						KTypeReady struct {
-							NAMING_FAILED struct {
-							} `json:"."`
-							FLastprobetime struct {
-							} `json:"f:lastProbeTime"`
-							FLasttransitiontime struct {
-							} `json:"f:lastTransitionTime"`
-							FStatus struct {
-							} `json:"f:status"`
-							FType struct {
-							} `json:"f:type"`
-						} `json:"k:{"type":"Ready"}"`
-					} `json:"f:conditions"`
-					FContainerstatuses struct {
-					} `json:"f:containerStatuses"`
-					FHostip struct {
-					} `json:"f:hostIP"`
-					FPhase struct {
-					} `json:"f:phase"`
-					FPodip struct {
-					} `json:"f:podIP"`
-					FPodips struct {
-						NAMING_FAILED struct {
-						} `json:"."`
-						KIP101212 struct {
-							NAMING_FAILED struct {
-							} `json:"."`
-							FIP struct {
-							} `json:"f:ip"`
-						} `json:"k:{"ip":"10.1.21.2"}"`
-					} `json:"f:podIPs"`
-					FStarttime struct {
-					} `json:"f:startTime"`
-				} `json:"f:status"`
-			} `json:"fieldsV1,omitempty"`
-		} `json:"managedFields"`
 	} `json:"metadata"`
 	Spec struct {
 		Volumes []struct {
@@ -381,8 +155,6 @@ type Pod struct {
 type Node struct {
 	Metadata struct {
 		Name              string    `json:"name"`
-		Selflink          string    `json:"selfLink"`
-		UID               string    `json:"uid"`
 		Resourceversion   string    `json:"resourceVersion"`
 		Creationtimestamp time.Time `json:"creationTimestamp"`
 		Labels            struct {
@@ -393,49 +165,6 @@ type Node struct {
 			KubernetesIoOs       string `json:"kubernetes.io/os"`
 			Microk8SIoCluster    string `json:"microk8s.io/cluster"`
 		} `json:"labels"`
-		Annotations struct {
-			NodeAlphaKubernetesIoTTL                         string `json:"node.alpha.kubernetes.io/ttl"`
-			ProjectcalicoOrgIpv4Address                      string `json:"projectcalico.org/IPv4Address"`
-			ProjectcalicoOrgIpv4Vxlantunneladdr              string `json:"projectcalico.org/IPv4VXLANTunnelAddr"`
-			VolumesKubernetesIoControllerManagedAttachDetach string `json:"volumes.kubernetes.io/controller-managed-attach-detach"`
-		} `json:"annotations"`
-		Managedfields []struct {
-			Manager    string    `json:"manager"`
-			Operation  string    `json:"operation"`
-			Apiversion string    `json:"apiVersion"`
-			Time       time.Time `json:"time"`
-			Fieldstype string    `json:"fieldsType"`
-			Fieldsv1   struct {
-				FMetadata struct {
-					FAnnotations struct {
-						FProjectcalicoOrgIpv4Address struct {
-						} `json:"f:projectcalico.org/IPv4Address"`
-						FProjectcalicoOrgIpv4Vxlantunneladdr struct {
-						} `json:"f:projectcalico.org/IPv4VXLANTunnelAddr"`
-					} `json:"f:annotations"`
-				} `json:"f:metadata"`
-				FStatus struct {
-					FConditions struct {
-						KTypeNetworkunavailable struct {
-							NAMING_FAILED struct {
-							} `json:"."`
-							FLastheartbeattime struct {
-							} `json:"f:lastHeartbeatTime"`
-							FLasttransitiontime struct {
-							} `json:"f:lastTransitionTime"`
-							FMessage struct {
-							} `json:"f:message"`
-							FReason struct {
-							} `json:"f:reason"`
-							FStatus struct {
-							} `json:"f:status"`
-							FType struct {
-							} `json:"f:type"`
-						} `json:"k:{"type":"NetworkUnavailable"}"`
-					} `json:"f:conditions"`
-				} `json:"f:status"`
-			} `json:"fieldsV1"`
-		} `json:"managedFields"`
 	} `json:"metadata"`
 	Spec struct {
 	} `json:"spec"`
@@ -497,32 +226,16 @@ func main() {
 	config, _ := clientcmd.BuildConfigFromFlags("", "<path-to-kubeconfig>")
 
 	clientset, _ := kubernetes.NewForConfig(config)
-	devPods, _ := clientset.CoreV1().Pods("dev").List(context.TODO(), v1.ListOptions{})
-	report = report + "Dev Pods\n\n"
-	for _, p := range devPods.Items {
-		b, _ := json.Marshal(p)
-		pod := Pod{}
-		json.Unmarshal(b, &pod)
-		report = report + fmt.Sprintf("Pod Name: %s\n", pod.Metadata.Name)
-		for _, c := range pod.Status.Conditions {
-			report = report + fmt.Sprintf("%s: %s\n", c.Type, c.Status)
-		}
-		report = report + fmt.Sprintf("\n")
-	}
-	report = report + fmt.Sprintf("--------------------------\n\n")
-	prodPods, _ := clientset.CoreV1().Pods("prod").List(context.TODO(), v1.ListOptions{})
-	report = report + "Prod Pods\n\n"
-	for _, p := range prodPods.Items {
-		b, _ := json.Marshal(p)
-		pod := Pod{}
-		json.Unmarshal(b, &pod)
-		report = report + fmt.Sprintf("Pod Name: %s\n", pod.Metadata.Name)
-		for _, c := range pod.Status.Conditions {
-			report = report + fmt.Sprintf("%s: %s\n", c.Type, c.Status)
-		}
-		report = report + fmt.Sprintf("\n")
-	}
-	report = report + fmt.Sprintf("--------------------------\n\n")
+	report = report + reportPods("dev", clientset)
+	report = report + reportPods("prod", clientset)
+	report = report + reportNodes(clientset)
+
+	sendPayload(report)
+
+}
+
+func reportNodes(clientset *kubernetes.Clientset) string {
+	report := ""
 	nodes, _ := clientset.CoreV1().Nodes().List(context.TODO(), v1.ListOptions{})
 	report = report + "Nodes\n\n"
 	for _, n := range nodes.Items {
@@ -536,14 +249,30 @@ func main() {
 		report = report + fmt.Sprintf("\n")
 	}
 	report = report + fmt.Sprintf("--------------------------\n\n")
+	return report
+}
 
-	sendPayload(report)
-
+func reportPods(namespace string, clientset *kubernetes.Clientset) string {
+	report := ""
+	devPods, _ := clientset.CoreV1().Pods(namespace).List(context.TODO(), v1.ListOptions{})
+	report = report + fmt.Sprintf("Pods in namespace: %s\n\n", namespace)
+	for _, p := range devPods.Items {
+		b, _ := json.Marshal(p)
+		pod := Pod{}
+		json.Unmarshal(b, &pod)
+		report = report + fmt.Sprintf("Pod Name: %s\n", pod.Metadata.Name)
+		for _, c := range pod.Status.Conditions {
+			report = report + fmt.Sprintf("%s: %s\n", c.Type, c.Status)
+		}
+		report = report + fmt.Sprintf("\n")
+	}
+	report = report + fmt.Sprintf("--------------------------\n\n")
+	return report
 }
 
 func sendPayload(content string) {
 	//discord web hook, used to post to discord
-	discordUrl := "<discord-webhook>"
+	discordUrl := "<discord-web-hook>"
 
 	jsonStr, _ := json.Marshal(&payload{
 		Username:  "k8s-healthcheck",
@@ -562,3 +291,5 @@ func sendPayload(content string) {
 	}
 	defer resp.Body.Close()
 }
+
+//https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/
