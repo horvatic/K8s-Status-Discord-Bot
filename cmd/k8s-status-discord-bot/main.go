@@ -6,11 +6,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/rest"
 )
 
 type payload struct {
@@ -221,11 +222,22 @@ func main() {
 
 	report := ""
 
+	//To run local uncomment this follow, and comment out in-cluster config
 	// uses the current context in kubeconfig
 	// path-to-kubeconfig -- for example, /root/.kube/config
-	config, _ := clientcmd.BuildConfigFromFlags("", "<path-to-kubeconfig>")
+	//config, _ := clientcmd.BuildConfigFromFlags("", "<path-to-kubeconfig>")
+	//clientset, _ := kubernetes.NewForConfig(config)
 
-	clientset, _ := kubernetes.NewForConfig(config)
+	// creates the in-cluster config
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		panic(err.Error())
+	}
+	clientset, err := kubernetes.NewForConfig(config)
+	if err != nil {
+		panic(err.Error())
+	}
+
 	report = report + reportPods("dev", clientset)
 	report = report + reportPods("prod", clientset)
 	report = report + reportNodes(clientset)
@@ -271,8 +283,7 @@ func reportPods(namespace string, clientset *kubernetes.Clientset) string {
 }
 
 func sendPayload(content string) {
-	//discord web hook, used to post to discord
-	discordUrl := "<discord-web-hook>"
+	discordUrl := os.Getenv("DISCORDHOOK")
 
 	jsonStr, _ := json.Marshal(&payload{
 		Username:  "k8s-healthcheck",
@@ -291,5 +302,3 @@ func sendPayload(content string) {
 	}
 	defer resp.Body.Close()
 }
-
-//https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/
