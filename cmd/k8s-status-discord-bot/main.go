@@ -302,5 +302,3 @@ func sendPayload(content string) {
 	}
 	defer resp.Body.Close()
 }
-
-//https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/

@@ -2,7 +2,7 @@ name: build-deploy
 
 on:
   push:
-    branches: [ feature/runjob ]
+    branches: [ main ]
 
 jobs:
   build:

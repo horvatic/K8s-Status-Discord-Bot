@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: stat-discord
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: stat-discord
+            image: horvatic/k8s-status-discord-bot:latest
+            env:
+            - name: DISCORDHOOK
+              valueFrom:
+                secretKeyRef: 
+                  name: discord
+                  key: web-hook 
+          restartPolicy: Never
+
+
