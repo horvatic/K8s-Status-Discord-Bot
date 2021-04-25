@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: stat-discord
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "0 18 * * *"
   jobTemplate:
     spec:
       template:
@@ -17,6 +17,11 @@ spec:
                 secretKeyRef: 
                   name: discord
                   key: web-hook 
+            - name: NAMESPACES
+              valueFrom:
+                configMapKeyRef:
+                  name: stat-config
+                  key: namespaces
           restartPolicy: Never
 
 

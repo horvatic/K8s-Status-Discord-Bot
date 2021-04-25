@@ -1,4 +1,4 @@
-module github.com/horvatic/k8report
+module github.com/horvatic/k8s-status-discord-bot
 
 go 1.16
 
