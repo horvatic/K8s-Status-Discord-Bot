@@ -222,6 +222,8 @@ func main() {
 
 	report := ""
 
+	report = report + "**###########################**\n"
+	report = report + fmt.Sprintf("Report For: %s\n\n", time.Now().Format("01-02-2006"))
 	//To run local uncomment this follow, and comment out in-cluster config
 	// uses the current context in kubeconfig
 	// path-to-kubeconfig -- for example, /root/.kube/config
@@ -241,6 +243,7 @@ func main() {
 	report = report + reportPods("dev", clientset)
 	report = report + reportPods("prod", clientset)
 	report = report + reportNodes(clientset)
+	report = report + "**###########################**\n"
 
 	sendPayload(report)
 
@@ -249,36 +252,40 @@ func main() {
 func reportNodes(clientset *kubernetes.Clientset) string {
 	report := ""
 	nodes, _ := clientset.CoreV1().Nodes().List(context.TODO(), v1.ListOptions{})
-	report = report + "Nodes\n\n"
+	report = report + "__**Nodes**__\n\n"
 	for _, n := range nodes.Items {
 		b, _ := json.Marshal(n)
 		node := Node{}
 		json.Unmarshal(b, &node)
 		report = report + fmt.Sprintf("Node Name: %s\n", node.Metadata.Name)
+		report = report + fmt.Sprintf("- - - - - - - - - - - - - -\n")
 		for _, c := range node.Status.Conditions {
 			report = report + fmt.Sprintf("%s: %s\n", c.Type, c.Status)
+			report = report + fmt.Sprintf("- - - - - - - - - - - - - -\n")
 		}
-		report = report + fmt.Sprintf("\n")
+		report = report + fmt.Sprintf("\n\n")
 	}
-	report = report + fmt.Sprintf("--------------------------\n\n")
+	report = report + fmt.Sprintf("**--------------------------**\n\n")
 	return report
 }
 
 func reportPods(namespace string, clientset *kubernetes.Clientset) string {
 	report := ""
 	devPods, _ := clientset.CoreV1().Pods(namespace).List(context.TODO(), v1.ListOptions{})
-	report = report + fmt.Sprintf("Pods in namespace: %s\n\n", namespace)
+	report = report + fmt.Sprintf("__**Pods In Namespace**__: %s\n\n", namespace)
 	for _, p := range devPods.Items {
 		b, _ := json.Marshal(p)
 		pod := Pod{}
 		json.Unmarshal(b, &pod)
 		report = report + fmt.Sprintf("Pod Name: %s\n", pod.Metadata.Name)
+		report = report + fmt.Sprintf("- - - - - - - - - - - - - -\n")
 		for _, c := range pod.Status.Conditions {
 			report = report + fmt.Sprintf("%s: %s\n", c.Type, c.Status)
+			report = report + fmt.Sprintf("- - - - - - - - - - - - - -\n")
 		}
-		report = report + fmt.Sprintf("\n")
+		report = report + fmt.Sprintf("\n\n")
 	}
-	report = report + fmt.Sprintf("--------------------------\n\n")
+	report = report + fmt.Sprintf("**--------------------------**\n\n")
 	return report
 }
 
