@@ -9,7 +9,8 @@ COPY . .
 RUN go build -o bin/k8s-status-discord-bot cmd/k8s-status-discord-bot/main.go
 
 FROM alpine:3
-ENV DISCORDHOOK=default 
+ENV DISCORDHOOK=default \
+    NAMESPACES=default
 
 RUN apk --no-cache add ca-certificates
 WORKDIR /dist
