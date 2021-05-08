@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dbot-discord
+  labels:
+    app: dbot-discord
+spec:
+  revisionHistoryLimit : 1
+  selector:
+    matchLabels:
+      app: dbot-discord
+  template:
+    metadata:
+      name: dbot-discord
+      labels:
+        app: dbot-discord
+    spec:
+      containers:
+      - name: dweb-ui
+        image: horvatic/k8s-status-discord-bot-ui:latest
+        env:
+          - name: K8_URI
+            valueFrom:
+              configMapKeyRef: 
+                name: dbot-config
+                key: k8-uri
+          - name: BOT_TOKEN
+            valueFrom:
+              secretKeyRef: 
+                name: discord-bot
+                key:  bot-token
+      - name: dweb-api
+        image: horvatic/k8s-status-discord-bot-api:latest
+        ports:
+          - containerPort: 8080
+            name: "discord-http"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3
