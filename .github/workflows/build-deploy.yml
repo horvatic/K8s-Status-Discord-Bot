@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Discord-Job
     runs-on: ubuntu-latest
     
     steps:
@@ -19,8 +19,17 @@ jobs:
       uses: actions/checkout@v2
         
     - name: Build
-      run: go build -v cmd/k8s-status-discord-bot/main.go
+      run: |
+         cd webhook/job
+         go build -v cmd/k8s-status-discord-bot/main.go
+         cd ../..
       
+    - name: Build
+      run: |
+         cd bot/api
+         go build -v cmd/k8s-status-discord-bot/main.go
+         cd ../..
+    
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     
@@ -30,12 +39,30 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     
-    - name: Push to Docker Hub
+    - name: Push Job to Docker Hub
       uses: docker/build-push-action@v2
       with:
         platforms: linux/arm64
-        context: .
-        file: ./Dockerfile
+        context: ./webhook/job
+        file: ./webhook/job/Dockerfile
         push: true 
-        tags: horvatic/k8s-status-discord-bot:latest
+        tags: horvatic/k8s-status-discord-bot-job:latest
+
+    - name: Push Api to Docker Hub
+      uses: docker/build-push-action@v2
+      with:
+        platforms: linux/arm64
+        context: ./bot/api
+        file: ./bot/api/Dockerfile
+        push: true 
+        tags: horvatic/k8s-status-discord-bot-api:latest
+
+    - name: Push Ui to Docker Hub
+      uses: docker/build-push-action@v2
+      with:
+        platforms: linux/arm64
+        context: ./bot/ui
+        file: ./bot/ui/Dockerfile
+        push: true 
+        tags: horvatic/k8s-status-discord-bot-ui:latest
 
